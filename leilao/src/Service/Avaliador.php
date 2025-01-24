@@ -7,12 +7,17 @@ use Alura\Leilao\Model\Leilao;
 class Avaliador
 {
     private $maiorValor = 0;
+    private $menorValor = INF;
 
     public function avalia(Leilao $leilao)
     {
         foreach ($leilao->getLances() as $lance) {
             if ($lance->getValor() > $this->maiorValor) {
                 $this->maiorValor = $lance->getValor();
+            } 
+            
+            if ($lance->getValor() < $this->menorValor) {
+                $this->menorValor = $lance->getValor();
             }
         }
     }
@@ -20,5 +25,10 @@ class Avaliador
     public function getMaiorValor(): float
     {
         return $this->maiorValor;
+    }
+
+    public function getMenorValor(): float
+    {
+        return $this->menorValor;
     }
 }
